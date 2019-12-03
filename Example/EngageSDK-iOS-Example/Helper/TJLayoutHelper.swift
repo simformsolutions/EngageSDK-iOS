@@ -1,0 +1,224 @@
+//
+//  TJLayoutHelper.swift
+//  TJLayoutHelperDemo
+//
+//  Created by Tejas Ardeshna on 07/12/17.
+//  Copyright © 2017 Tejas Ardeshna. All rights reserved.
+//
+
+import UIKit
+
+@IBDesignable class TJLayoutHelper: NSLayoutConstraint {
+
+    // MARK:- Variables
+    @IBInspectable var applyRatio: Bool = false {
+        didSet {
+            self.adjustSpaceForConstraint()
+        }
+    }
+
+    @IBInspectable var X_XsSpace: CGFloat = 0.0 {
+        didSet {
+            if UIDevice.current.screenType == .iPhoneX_Xs {
+                self.adjustSpaceForConstraint()
+            }
+        }
+    }
+
+    @IBInspectable var XrSpace: CGFloat = 0.0 {
+        didSet {
+            if UIDevice.current.screenType == .iPhoneXr {
+                self.adjustSpaceForConstraint()
+            }
+        }
+    }
+
+    @IBInspectable var XSpace: CGFloat = 0.0 {
+        didSet {
+            if UIDevice.current.screenType == .iPhoneX_Xs {
+                self.adjustSpaceForConstraint()
+            }
+        }
+    }
+
+    @IBInspectable var XsMaxSpace: CGFloat = 0.0 {
+        didSet {
+            if UIDevice.current.screenType == .iPhoneXsMax {
+                self.adjustSpaceForConstraint()
+            }
+        }
+    }
+
+    @IBInspectable var inch4Space: CGFloat = 0.0 {
+        didSet {
+            if UIDevice.current.screenType == .iPhones_5_5s_5c_SE {
+                self.adjustSpaceForConstraint()
+            }
+        }
+    }
+
+    @IBInspectable var inch4_7Space: CGFloat = 0.0 {
+        didSet {
+            if UIDevice.current.screenType == .iPhones_6_6s_7_8 {
+                self.adjustSpaceForConstraint()
+            }
+        }
+    }
+
+    @IBInspectable var inch5_5Space: CGFloat = 0.0 {
+        didSet {
+            if UIDevice.current.screenType == .iPhones_6Plus_6sPlus_7Plus_8Plus {
+                self.adjustSpaceForConstraint()
+            }
+        }
+    }
+
+    @IBInspectable var inch9_7: CGFloat = 0.0 {
+        didSet {
+            if UIDevice.current.screenType == .iPad_9_7 {
+                self.adjustSpaceForConstraint()
+            }
+        }
+    }
+
+    @IBInspectable var inch_10_5: CGFloat = 0.0 {
+        didSet {
+            if UIDevice.current.screenType == .iPad_10_5 {
+                self.adjustSpaceForConstraint()
+            }
+        }
+    }
+
+    @IBInspectable var inch_11: CGFloat = 0.0 {
+        didSet {
+            if UIDevice.current.screenType == .iPad_11 {
+                self.adjustSpaceForConstraint()
+            }
+        }
+    }
+
+    @IBInspectable var inch12_9: CGFloat = 0.0 {
+        didSet {
+            if UIDevice.current.screenType == .iPad_12_9 {
+                self.adjustSpaceForConstraint()
+            }
+        }
+    }
+
+    var isConstantAltered = false
+
+    // MARK: -
+    // MARK: - Initialisers
+    override init() {
+        super.init()
+    }
+
+    override func awakeFromNib() {
+    }
+
+    /// this method will identify device
+    func adjustSpaceForConstraint() {
+        if isConstantAltered { return }
+        switch UIDevice.current.screenType {
+        case .iPhones_5_5s_5c_SE:
+            self.addConstant(addition: inch4Space)
+        case .iPhoneX_Xs:
+            self.addConstant(addition: XSpace)
+        case .iPhoneXr:
+            self.addConstant(addition: XrSpace)
+        case .iPhoneXsMax:
+            self.addConstant(addition: XsMaxSpace)
+        case .iPhones_6_6s_7_8:
+            self.addConstant(addition: inch4_7Space)
+        case .iPhones_6Plus_6sPlus_7Plus_8Plus:
+            self.addConstant(addition: inch5_5Space)
+        case .iPad_9_7:
+            self.addConstant(addition: inch9_7)
+        case .iPad_10_5:
+            self.addConstant(addition: inch_10_5)
+        case .iPad_11:
+            self.addConstant(addition: inch_11)
+        case .iPad_12_9:
+            self.addConstant(addition: inch12_9)
+        default:
+            break
+        }
+        isConstantAltered = true // so constrain won't modify twice
+    }
+
+    /// this will add extra space according to device
+    ///
+    /// - Parameter addition: extra space in pixel
+    func addConstant(addition : CGFloat)
+    {
+        // TODO:- Change screen type if you are designing in other devices rather then 4 inch iphone
+        if applyRatio && UIDevice.current.screenType != .iPhones_5_5s_5c_SE
+        {
+            let h         = UIDevice.current.orientation == .portrait ? UIScreen.main.bounds.size.height : UIScreen.main.bounds.size.width
+            // TODO:- Change screen size  if you are designing in other devices rather then 4 inch iphone to your screen size
+            let ratio     = self.constant * h / 568 // 568 because we have designed in iphone 5, modify if your desings in other iphone
+            self.constant += (addition == 0.0 ? ratio : addition)
+        }
+        else
+        {
+            self.constant += addition
+        }
+    }
+
+}
+
+extension UIDevice {
+
+
+    enum ScreenType: String {
+        case iPhone4_4S = "iPhone 4 or iPhone 4S"
+        case iPhones_5_5s_5c_SE = "iPhone 5, iPhone 5s, iPhone 5c or iPhone SE"
+        case iPhones_6_6s_7_8 = "iPhone 6, iPhone 6S, iPhone 7 or iPhone 8"
+        case iPhones_6Plus_6sPlus_7Plus_8Plus = "iPhone 6 Plus, iPhone 6S Plus, iPhone 7 Plus or iPhone 8 Plus"
+        case iPhoneX_Xs = "iPhone X, iPhone Xs"
+        case iPhoneXr = "iPhone Xr"
+        case iPhoneXsMax = "iPhone Xs Max"
+        case iPad_9_7 = "iPad 9.7"
+        case iPad_10_5 = "iPad 10.5"
+        case iPad_11 = "iPad 11"
+        case iPad_12_9 = "iPad 12.9"
+        case unknown // for future if there will be new screen size
+    }
+
+    // MARK: - Variables
+    var iPhoneX_Xs: Bool {
+        return UIScreen.main.nativeBounds.height == 2436
+    }
+    var iPhone: Bool {
+        return UIDevice.current.userInterfaceIdiom == .phone
+    }
+    var screenType: ScreenType {
+        switch UIScreen.main.nativeBounds.height {
+        case 960:
+            return .iPhone4_4S
+        case 1136:
+            return .iPhones_5_5s_5c_SE
+        case 1334:
+            return .iPhones_6_6s_7_8
+        case 1920, 2208:
+            return .iPhones_6Plus_6sPlus_7Plus_8Plus
+        case 2436:
+            return .iPhoneX_Xs
+        case 1792:
+            return .iPhoneXr
+        case 2688:
+            return .iPhoneXsMax
+        case 2048:
+            return .iPad_9_7
+        case 2224:
+            return .iPad_10_5
+        case 2388:
+            return .iPad_11
+        case 2732:
+            return .iPad_12_9
+        default:
+            return .unknown
+        }
+    }
+}
+

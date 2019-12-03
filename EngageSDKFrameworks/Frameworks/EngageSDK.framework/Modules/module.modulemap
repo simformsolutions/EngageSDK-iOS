@@ -1,0 +1,11 @@
+framework module EngageSDK {
+  umbrella header "EngageSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module EngageSDK.Swift {
+    header "EngageSDK-Swift.h"
+    requires objc
+}
