@@ -1,0 +1,19 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'EngageSDK-iOS-Example' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+  pod 'EngageSDK-iOS', :path => '../'
+  # Pods for EngageSDK-iOS-Example
+  pod 'Bagel'
+  pod 'SSSpinnerButton'
+  pod 'R.swift'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Messaging'
+  pod 'MaterialComponents/Snackbar'
+  pod 'TPKeyboardAvoidingSwift'
+  
+end
+ 
