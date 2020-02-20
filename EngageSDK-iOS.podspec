@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "EngageSDK-iOS"
-  spec.version      = "3.1"
+  spec.version      = "3.2"
   spec.summary      = "A library to discover beacon based on UUID"
 
   # This description is used to generate tags and improve search results.
@@ -52,8 +52,7 @@ Pod::Spec.new do |spec|
   #  profile URL.
   #
 
-    spec.author             = "Verlos"
-  # spec.author             = { "Sumit Goswami" => "sumit.g@simformsolutions.com" }
+  spec.author             = { "Sumit Goswami" => "sumit.g@simformsolutions.com" }
   # Or just: spec.author    = "Sumit Goswami"
   # spec.authors            = { "Sumit Goswami" => "sumit.g@simformsolutions.com" }
   # spec.social_media_url   = "https://twitter.com/Sumit Goswami"
@@ -83,7 +82,7 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-   spec.source       = { :git => "https://github.com/Verlos/EngageSDK-iOS.git", :tag => "#{spec.version}" }
+   spec.source       = { :git => "https://github.com/simformsolutions/iOS-EngageSDK.git", :tag => "#{spec.version}" }
    spec.ios.vendored_frameworks = [
 
    "EngageSDKFrameworks/Frameworks/EngageSDK.framework"
