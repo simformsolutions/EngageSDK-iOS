@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "EngageSDK-iOS"
-  spec.version      = "2.8"
+  spec.version      = "3.2"
   spec.summary      = "A library to discover beacon based on UUID"
 
   # This description is used to generate tags and improve search results.
